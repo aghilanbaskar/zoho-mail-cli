@@ -1,0 +1,19 @@
+{
+  "name": "zoho-mail",
+  "version": "1.0.0",
+  "description": "Zoho mail view client",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "zohomail": "./bin/index.js"
+  },
+  "author": "Aghilan Baskar",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "open": "^8.0.6"
+  }
+}
