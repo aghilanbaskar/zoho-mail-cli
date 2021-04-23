@@ -27,9 +27,9 @@ const login = async () => {
             console.log('****************************************************************');
             process.exit();
         }
-        fs.writeFileSync('oauth_token.json', JSON.stringify(oauth_token));
+        fs.writeFileSync(__dirname+'/oauth_token.json', JSON.stringify(oauth_token));
         console.log( "You have successfully authenticated ZOHO MAIL CLI!" );
-        if (!fs.existsSync('oauth_token.json')) {
+        if (!fs.existsSync(__dirname+'/oauth_token.json')) {
             console.log('Not able to save token...Try again')
         }
         process.exit();
@@ -39,13 +39,13 @@ const login = async () => {
 };
 
 const message = async () => {
-    if (!fs.existsSync('oauth_token.json')) {
+    if (!fs.existsSync(__dirname+'/oauth_token.json')) {
         console.log('*******************************************************************');
-        console.log('Authorization token not found. Try "zohomail login" to create one');
+        console.log('Authorization token not found. Try "mail login" to create one');
         console.log('*******************************************************************');
         process.exit();
     }
-    const authorization_token = JSON.parse(fs.readFileSync('oauth_token.json'));
+    const authorization_token = JSON.parse(fs.readFileSync(__dirname+'/oauth_token.json'));
     // console.log('Token Exist',authorization_token.access_token, authorization_token.account[0].accountId);
     const config = {
         headers: { Authorization: `Bearer ${authorization_token.access_token}` }
@@ -73,7 +73,9 @@ if(firstCommand == 'login'){
     console.log('Commands Available');
     console.log('1. login');
     console.log('2. getmail');
-    console.log('Try with above two commands. Eg run  "zohomail login"');
+    console.log('Try with above two commands. Eg run  "mail login"');
     console.log('****************************************************************');
     process.exit()
 }
+
+// https://accounts.zoho.com/oauth/v2/auth/refresh?client_id=1000.W5RO2PMZFJJSTBDLM8O6VHELIBRH4D&response_type=token&scope=ZohoMail.messages.READ,ZohoMail.accounts.READ&redirect_uri=http://localhost:8080/callback/
