@@ -16,10 +16,12 @@ cd zoho-mail-cli
 
 npm i
 
-```
-Install CLI globally
-```sh
 npm install -g .
+```
+
+or install globally via npm package
+```sh
+npm install -g zoho-mail
 ```
 
 ## Usage
