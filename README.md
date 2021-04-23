@@ -8,7 +8,7 @@ Zoho mail cli is node client tool used to authenticate and read account and mess
 
 ## Installation
 
-
+Clone and install required packages
 ```bash
 git clone https://github.com/aghilanbaskar/zoho-mail-cli.git
 
@@ -16,8 +16,10 @@ cd zoho-mail-cli
 
 npm i
 
+```
+Install CLI globally
+```sh
 npm install -g .
-
 ```
 
 ## Usage
