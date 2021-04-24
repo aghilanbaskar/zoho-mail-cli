@@ -58,18 +58,26 @@ const messages = async (query_params) => {
     };
     let params = ''
     if(Object.keys(query_params).length > 0){
-        params = new URLSearchParams({
-            start: 2,
-            limit: 1
-          }).toString();
+        params = new URLSearchParams(query_params).toString();
         params='?'+params;
     }
-    const res = await axios.get(`http://${location[authorization_token.location]}/api/accounts/${authorization_token.account[0].accountId}/messages/view${params}`, config );
-    // console.log(res.data)
-    if(!(res.data.status.code && res.data.status.code === 200)){
+    await axios.get(`http://${location[authorization_token.location]}/api/accounts/${authorization_token.account[0].accountId}/messages/view${params}`, config ).then((res) => {
+        for (const key in res.data.data) {
+            console.log('*******************************************************************************************');
+            console.log('From: '+res.data.data[key].fromAddress);
+            console.log('Subject: '+res.data.data[key].subject);
+            console.log('Summary: '+res.data.data[key].summary);
+            // console.log('*******************************************************************************************');
+        }
+      }).catch((error) => {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
         console.log('*******************************************************************************************');
         console.log('Failed during fetching data');
-        console.log('Token deleted sucessfully...........');
+        console.log('Deleting token...........');
         fs.unlinkSync(__dirname+'/oauth_token.json');
         if (!fs.existsSync(__dirname+'/oauth_token.json')) {
             console.log('Token deleted sucessfully...........');
@@ -77,14 +85,7 @@ const messages = async (query_params) => {
         console.log('Refreshing the token..........................');
         console.log('*******************************************************************************************');
         login('https://accounts.zoho.com/oauth/v2/auth/refresh?client_id=1000.W5RO2PMZFJJSTBDLM8O6VHELIBRH4D&response_type=token&scope=ZohoMail.messages.READ,ZohoMail.accounts.READ&redirect_uri=http://localhost:8080/callback/');
-    }
-    for (const key in res.data.data) {
-        console.log('*******************************************************************************************');
-        console.log('From: '+res.data.data[key].fromAddress);
-        console.log('Subject: '+res.data.data[key].subject);
-        console.log('Summary: '+res.data.data[key].summary);
-        // console.log('*******************************************************************************************');
-    }
+      })
 };
 
 if(firstCommand == 'login'){
