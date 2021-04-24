@@ -28,9 +28,18 @@ module.exports = ( { authorizationURL } ) => {
         })
         var server =  app.listen(8080, () => {
             console.log("Server is listening on port ");
+            open( authorizationURL );
+            console.log("Please wait untill the browser open...");
+        }).on('error', function (err) {
+            if(err.errno === 'EADDRINUSE') {
+                console.log(`----- Port 8080 is busy-----`);
+            } else {
+                console.log(err);
+            }
+            process.exit();
         });
-        open( authorizationURL );  
-      } );
+
+      });
     };
     
     return {
