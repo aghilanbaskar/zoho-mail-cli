@@ -69,6 +69,11 @@ const messages = async (query_params) => {
             console.log('Summary: '+res.data.data[key].summary);
             // console.log('*******************************************************************************************');
         }
+        if(res.data.data.length === 0){
+            console.log('*******************************************************************************************');
+            console.log('Data not available for the requested query. Try with different query params.')
+            console.log('*******************************************************************************************');
+        }
       }).catch((error) => {
         if (error.response) {
             console.log(error.response.data);
