@@ -32,7 +32,7 @@ mail login
 ```
 To read the messages.
 ```cli
-mail message
+mail messages
 ```
 
 ## License
